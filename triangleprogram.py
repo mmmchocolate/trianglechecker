@@ -6,10 +6,12 @@ top = Tk()
 newcanvas = Canvas(top, width = 600, height = 400)
 newcanvas.pack(side = TOP)
 newcanvas.configure(background='black')
+
 def close_window():
 	top.destroy()
 
 def calculate():
+	#calculates the unknown side of the triangle
 	A = A_in.get()
 	B = B_in.get()
 	C = C_in.get()
@@ -30,7 +32,6 @@ def clear():
 	B_in.insert(0,"")
 	C_in.delete(0,END)
 	C_in.insert(0,"")
-
 
 box = Frame(top)
 box.pack(side = BOTTOM)
