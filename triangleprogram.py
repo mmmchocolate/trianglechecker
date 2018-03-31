@@ -13,7 +13,9 @@ ratcanvas.pack(side = TOP)
 rat_t = turtle.RawTurtle(ratcanvas)
 rat_t.hideturtle()
 rat_t.speed(0)
-
+scale = 100
+condition = True
+statement = False
 ctcanvas = Canvas(ct, width = 600, height = 400)
 ctcanvas.pack(side = TOP)
 
@@ -45,7 +47,7 @@ def rat_calculate():
 		angle_C = 90 - angle_B
 		C_Angle_in.delete(0,END)
 		C_Angle_in.insert(0,str(angle_C))
-		# draw(float(output),float(B),float(C),float(angle_B),float(angle_C))
+		draw(float(output),float(B),float(C),float(angle_B),float(angle_C),True)
 		
 	elif B == 0 and A > 0 and C > 0:
 		output = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
@@ -294,7 +296,6 @@ def ct_set(a,b,c,d,e,f):
 	ct_Angle_C_in.delete(0,END)
 	ct_Angle_C_in.insert(0,str(f))
 
-
 def clear():
 	A_in.delete(0,END)
 	A_in.insert(0,str(0))
@@ -324,6 +325,7 @@ def clear():
 	rat_t.clear()
 	ct_t.clear()
 
+
 def home():
 	rat.withdraw()
 	ct.withdraw()
@@ -339,21 +341,51 @@ def goto_rat():
 	ct.withdraw()
 	rat.deiconify()
 
-def draw(a,b,c,e,f):
-	# rat_t.write("Side B", font=("Arial", 16, "normal")) #used to add text to turtle
-	rat_t.penup()
+def draw(a,b,c,e,f,condition):
+	global scale,statement
+	rat_t.speed(0)
+	xlist = []
+	ylist = []
+	hyp = scale * a
+	base = scale *b
+	opp = scale * c
+	# rat_t.hideturtle()
+	rat_t.up()
 	rat_t.goto(-200,-150)
-	rat_t.pendown()
-	hyp = 105 *a
-	base = 105 *b
-	opp = 105 *c
-	rat_t.forward(base)
-	rat_t.left(90)
-	rat_t.forward(opp)
-	rat_t.left(90+f)
-	rat_t.forward(hyp)
-	rat_t.left(90+e)
+	
+	if statement == True:
+		rat_t.pendown()
+
+	while condition:
+		rat_t.forward(base) 
+		i = rat_t.xcor()
+		rat_t.left(90)
+		rat_t.forward(opp)
+		j = rat_t.ycor()
+		rat_t.left(90+f)
+		rat_t.forward(hyp)
+		rat_t.left(90+e)
+		condition = False
+
+		if i > 200 or j > 175:
+			scale -=2
+			hyp = scale * hyp
+			base = scale *base
+			opp = scale * opp
+			# condition = True
+			draw(a,b,c,e,f,True)
+
+	statement = True
+	# condition = True
+	draw(a,b,c,e,f,True)
+	draw(a,b,c,e,f,False)
+	condition = False
+	statement = False
 	return
+
+def gtfo():
+	top.destroy()
+
 
 box0 = Frame(top)
 box0.pack()
@@ -400,7 +432,7 @@ cal_button = Button(box,text = "Calculate", command = lambda:rat_calculate())
 cal_button.grid(row = 5, column = 2)
 clear_botton = Button(box,text = "Clear", command = clear)
 clear_botton.grid(row = 6, column = 2)
-close_button = Button(box, text = "Close", command = quit)
+close_button = Button(box, text = "Close", command = gtfo)
 close_button.grid(row = 7, column = 2)
 change_button = Button(box, text = "Cosine Triangle", command = goto_ct)
 change_button.grid(row = 8, column = 2)
@@ -441,12 +473,17 @@ cal_button = Button(box1,text = "Calculate", command = lambda:ct_calculate())
 cal_button.grid(row = 5, column = 2)
 clear_botton = Button(box1,text = "Clear", command = clear)
 clear_botton.grid(row = 6, column = 2)
-close_button = Button(box1, text = "Close", command = quit)
+close_button = Button(box1, text = "Close", command = gtfo)
 close_button.grid(row = 7, column = 2)
 change_button = Button(box1, text = "Right angle triange", command = goto_rat)
 change_button.grid(row = 8, column = 2)
 home_button = Button(box1, text = "Home", command = home)
 home_button.grid(row = 9, column = 2)
 
-clear()
-top.mainloop()
+
+def main():
+	clear()
+	top.mainloop()
+
+if __name__ == '__main__':
+	main()
