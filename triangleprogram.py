@@ -32,8 +32,8 @@ def rat_calculate():
 		B = float(B_in.get())
 		C = float(C_in.get())
 		D = 90
-		E = float(B_Angle_in.get())
-		F = float(C_Angle_in.get())
+		E = float(B_Angle_in.get()) #angle_B
+		F = float(C_Angle_in.get())	#angle_C
 	except ValueError:
 		messagebox.showinfo("Error", "Please enter a interger")
 
@@ -58,9 +58,7 @@ def rat_calculate():
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
-	# E = angle B , F = angle C
 	elif E > 0 and A > 0: 
-		#input, angle B and hyp,a 
 		angle_C = (90-float(E))
 		B = round(float(A)*math.sin(math.radians(float(E))),2)
 		C = round(float(A)*math.cos(math.radians(float(E))),2)
@@ -69,7 +67,6 @@ def rat_calculate():
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif E > 0 and B > 0:
-		#input, angle B and adj,b 
 		angle_C = (90-float(E))
 		A = round(float(B)/math.sin(math.radians(float(E))),2)
 		C = round(float(B)/math.tan(math.radians(float(E))),2)
@@ -78,7 +75,6 @@ def rat_calculate():
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif E > 0 and C > 0: 
-		#input, angle B and opp,c
 		angle_C = (90-float(E))
 		A = round(float(C)/math.cos(math.radians(float(E))),2)
 		B = round(float(C)*math.tan(math.radians(float(E))),2)
@@ -87,7 +83,6 @@ def rat_calculate():
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and A > 0:
-		#input,  angle c and hyp,a
 		angle_B = (90-float(F))
 		B = round(float(A)*math.cos(math.radians(float(F))),2)
 		C = round(float(A)*math.sin(math.radians(float(F))),2)
@@ -96,7 +91,6 @@ def rat_calculate():
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and B > 0:
-		#input,  angle c and adj,b
 		angle_B = (90-float(F))
 		A = round(float(B)/math.cos(math.radians(float(F))),2)
 		C = round(float(B)*math.tan(math.radians(float(F))),2)
@@ -105,7 +99,6 @@ def rat_calculate():
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and C > 0:
-		#input,  angle c and opp,c
 		angle_B = (90-float(F))
 		A = round(float(C)/math.sin(math.radians(float(F))),2)
 		B = round(fmdloat(C)/math.tan(math.radians(float(F))),2)
