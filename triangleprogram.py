@@ -38,115 +38,80 @@ def rat_calculate():
 		messagebox.showinfo("Error", "Please enter a interger")
 
 	if (A == 0 and B > 0 and C > 0):
-		output = round(math.sqrt((float(B)**2) + (float(C)**2)),2)
-		A_in.delete(0,END)
-		A_in.insert(0,str(output))
+		A = round(math.sqrt((float(B)**2) + (float(C)**2)),2)
 		angle_B = round(math.degrees(math.atan(float(B)/float(C))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
 		angle_C = 90 - angle_B
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		draw(float(output),float(B),float(C),float(angle_B),float(angle_C),True)
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 		
 	elif B == 0 and A > 0 and C > 0:
-		output = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
-		B_in.delete(0,END)
-		B_in.insert(0,str(output))
+		B = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
 		angle_B = round(math.degrees(math.acos(float(C)/float(A))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
 		angle_C = 90 - angle_B
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		A_Angle_in.delete(0,END)
-		A_Angle_in.insert(0,str(90))
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 		
 	elif C == 0 and A > 0 and B > 0:
-		output = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
-		C_in.delete(0,END)
-		C_in.insert(0,str(output))
+		C = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
 		angle_B = round(math.degrees(math.asin(float(B)/float(A))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
 		angle_C = 90 - angle_B
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		A_Angle_in.delete(0,END)
-		A_Angle_in.insert(0,str(90))
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	# E = angle B , F = angle C
 	elif E > 0 and A > 0: 
 		#input, angle B and hyp,a 
 		angle_C = (90-float(E))
-		side_B = round(float(A)*math.sin(math.radians(float(E))),2)
-		side_C = round(float(A)*math.cos(math.radians(float(E))),2)
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		B_in.delete(0,END)
-		B_in.insert(0,str(side_B))
-		C_in.delete(0,END)
-		C_in.insert(0,str(side_C))
+		B = round(float(A)*math.sin(math.radians(float(E))),2)
+		C = round(float(A)*math.cos(math.radians(float(E))),2)
+		angle_B = E
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif E > 0 and B > 0:
 		#input, angle B and adj,b 
 		angle_C = (90-float(E))
-		side_A = round(float(B)/math.sin(math.radians(float(E))),2)
-		side_C = round(float(B)/math.tan(math.radians(float(E))),2)
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		A_in.delete(0,END)
-		A_in.insert(0,str(side_A))
-		C_in.delete(0,END)
-		C_in.insert(0,str(side_C))
+		A = round(float(B)/math.sin(math.radians(float(E))),2)
+		C = round(float(B)/math.tan(math.radians(float(E))),2)
+		angle_B = E
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif E > 0 and C > 0: 
 		#input, angle B and opp,c
 		angle_C = (90-float(E))
-		side_A = round(float(C)/math.cos(math.radians(float(E))),2)
-		side_B = round(float(C)*math.tan(math.radians(float(E))),2)
-		C_Angle_in.delete(0,END)
-		C_Angle_in.insert(0,str(angle_C))
-		A_in.delete(0,END)
-		A_in.insert(0,str(side_A))
-		B_in.delete(0,END)
-		B_in.insert(0,str(side_B))
+		A = round(float(C)/math.cos(math.radians(float(E))),2)
+		B = round(float(C)*math.tan(math.radians(float(E))),2)
+		angle_B = E
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and A > 0:
 		#input,  angle c and hyp,a
 		angle_B = (90-float(F))
-		side_B = round(float(A)*math.cos(math.radians(float(F))),2)
-		side_C = round(float(A)*math.sin(math.radians(float(F))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
-		B_in.delete(0,END)
-		B_in.insert(0,str(side_B))
-		C_in.delete(0,END)
-		C_in.insert(0,str(side_C))
+		B = round(float(A)*math.cos(math.radians(float(F))),2)
+		C = round(float(A)*math.sin(math.radians(float(F))),2)
+		angle_C = F
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and B > 0:
 		#input,  angle c and adj,b
 		angle_B = (90-float(F))
-		side_A = round(float(B)/math.cos(math.radians(float(F))),2)
-		side_C = round(float(B)*math.tan(math.radians(float(F))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
-		A_in.delete(0,END)
-		A_in.insert(0,str(side_A))
-		C_in.delete(0,END)
-		C_in.insert(0,str(side_C))
+		A = round(float(B)/math.cos(math.radians(float(F))),2)
+		C = round(float(B)*math.tan(math.radians(float(F))),2)
+		angle_C = F
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 
 	elif F > 0 and C > 0:
 		#input,  angle c and opp,c
 		angle_B = (90-float(F))
-		side_A = round(float(C)/math.sin(math.radians(float(F))),2)
-		side_B = round(float(C)/math.tan(math.radians(float(F))),2)
-		B_Angle_in.delete(0,END)
-		B_Angle_in.insert(0,str(angle_B))
-		A_in.delete(0,END)
-		A_in.insert(0,str(side_A))
-		B_in.delete(0,END)
-		B_in.insert(0,str(side_B))
+		A = round(float(C)/math.sin(math.radians(float(F))),2)
+		B = round(fmdloat(C)/math.tan(math.radians(float(F))),2)
+		angle_C = F
+		rat_set(A,B,C,D,angle_B,angle_C)
+		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
 	else:
 		messagebox.showinfo("Error", "Please enter two unknowns")
 
@@ -282,6 +247,20 @@ def ct_calculate():
 		messagebox.showinfo("Error", "The specified values do not match a valid triangle.")
 		messagebox.showinfo("Error", "Please input intergers not strings")
 
+def rat_set(a,b,c,d,e,f):
+	A_in.delete(0,END)
+	A_in.insert(0,str(a))
+	B_in.delete(0,END)
+	B_in.insert(0,str(b))
+	C_in.delete(0,END)
+	C_in.insert(0,str(c))
+	A_Angle_in.delete(0,END)
+	A_Angle_in.insert(0,str(d))
+	B_Angle_in.delete(0,END)
+	B_Angle_in.insert(0,str(e))
+	C_Angle_in.delete(0,END)
+	C_Angle_in.insert(0,str(f))
+
 def ct_set(a,b,c,d,e,f):
 	ct_A_in.delete(0,END)
 	ct_A_in.insert(0,str(a))
@@ -321,10 +300,8 @@ def clear():
 	ct_Angle_B_in.insert(0,str(0))
 	ct_Angle_C_in.delete(0,END)
 	ct_Angle_C_in.insert(0,str(0))
-
 	rat_t.clear()
 	ct_t.clear()
-
 
 def home():
 	rat.withdraw()
@@ -341,47 +318,31 @@ def goto_rat():
 	ct.withdraw()
 	rat.deiconify()
 
-def draw(a,b,c,e,f,condition):
-	global scale,statement
+def draw(a,b,c,e,f):
+	rat_t.clear()
 	rat_t.speed(0)
-	xlist = []
-	ylist = []
-	hyp = scale * a
-	base = scale *b
-	opp = scale * c
-	# rat_t.hideturtle()
 	rat_t.up()
 	rat_t.goto(-200,-150)
-	
-	if statement == True:
-		rat_t.pendown()
+	rat_t.penup()
 
-	while condition:
-		rat_t.forward(base) 
-		i = rat_t.xcor()
-		rat_t.left(90)
-		rat_t.forward(opp)
-		j = rat_t.ycor()
-		rat_t.left(90+f)
-		rat_t.forward(hyp)
-		rat_t.left(90+e)
-		condition = False
+	if b > c:
+		hyp = (400/b) * a
+		base = (400/b) *b
+		opp = (400/b) * c
+	elif c > b:
+		hyp = (300/c) * a
+		base = (300/c) *b
+		opp = (300/c) * c
+			
+	rat_t.pendown()
+	rat_t.forward(base) 
+	rat_t.left(90)
+	rat_t.forward(opp)
+	rat_t.left(90+f)
+	rat_t.forward(hyp)
+	rat_t.left(90+e)
+	rat_t.penup()
 
-		if i > 200 or j > 175:
-			scale -=2
-			hyp = scale * hyp
-			base = scale *base
-			opp = scale * opp
-			# condition = True
-			draw(a,b,c,e,f,True)
-
-	statement = True
-	# condition = True
-	draw(a,b,c,e,f,True)
-	draw(a,b,c,e,f,False)
-	condition = False
-	statement = False
-	return
 
 def gtfo():
 	top.destroy()
@@ -433,9 +394,9 @@ cal_button.grid(row = 5, column = 2)
 clear_botton = Button(box,text = "Clear", command = clear)
 clear_botton.grid(row = 6, column = 2)
 close_button = Button(box, text = "Close", command = gtfo)
-close_button.grid(row = 7, column = 2)
+# close_button.grid(row = 7, column = 2)
 change_button = Button(box, text = "Cosine Triangle", command = goto_ct)
-change_button.grid(row = 8, column = 2)
+# change_button.grid(row = 8, column = 2)
 home_button = Button(box, text = "Home", command = home)
 home_button.grid(row = 9, column = 2)
 
@@ -474,9 +435,9 @@ cal_button.grid(row = 5, column = 2)
 clear_botton = Button(box1,text = "Clear", command = clear)
 clear_botton.grid(row = 6, column = 2)
 close_button = Button(box1, text = "Close", command = gtfo)
-close_button.grid(row = 7, column = 2)
+# close_button.grid(row = 7, column = 2)
 change_button = Button(box1, text = "Right angle triange", command = goto_rat)
-change_button.grid(row = 8, column = 2)
+# change_button.grid(row = 8, column = 2)
 home_button = Button(box1, text = "Home", command = home)
 home_button.grid(row = 9, column = 2)
 
