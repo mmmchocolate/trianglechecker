@@ -336,7 +336,6 @@ def draw(a,b,c,e,f):
 	rat_t.left(90+e)
 	rat_t.penup()
 
-
 def gtfo():
 	top.destroy()
 
