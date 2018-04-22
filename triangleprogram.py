@@ -13,9 +13,7 @@ ratcanvas.pack(side = TOP)
 rat_t = turtle.RawTurtle(ratcanvas)
 rat_t.hideturtle()
 rat_t.speed(0)
-scale = 100
-condition = True
-statement = False
+equation_data = "Please enter data to the calculator"
 ctcanvas = Canvas(ct, width = 600, height = 400)
 ctcanvas.pack(side = TOP)
 
@@ -27,6 +25,7 @@ ct.withdraw()
 rat.withdraw()
 
 def rat_calculate():
+	global equation_data
 	try:
 		A = float(A_in.get())
 		B = float(B_in.get())
@@ -43,13 +42,16 @@ def rat_calculate():
 		angle_C = 90 - angle_B
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		
+		equation(True, 'Side A = sqrt(B**2 + C**2)', 'angle_B = atan(float(B)/float(C)', 'angle C = 90 - angle B')
+
 	elif B == 0 and A > 0 and C > 0:
 		B = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
 		angle_B = round(math.degrees(math.acos(float(C)/float(A))),2)
 		angle_C = 90 - angle_B
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side B = sqrt(A**2 - C**2)', 'angle_B = acos(float(C)/float(A)', 'angle C = 90 - angle B')
+
 		
 	elif C == 0 and A > 0 and B > 0:
 		C = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
@@ -57,6 +59,7 @@ def rat_calculate():
 		angle_C = 90 - angle_B
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side C = sqrt(A**2 - B**2)', 'angle_B = asin(float(B)/float(A)', 'angle C = 90 - angle B')
 
 	elif E > 0 and A > 0: 
 		angle_C = (90-float(E))
@@ -65,6 +68,8 @@ def rat_calculate():
 		angle_B = E
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side B = A*sin(Angle B)', 'Side C = A*cos(Angle B)', 'angle_C = 90-Angle B')
+
 
 	elif E > 0 and B > 0:
 		angle_C = (90-float(E))
@@ -73,6 +78,8 @@ def rat_calculate():
 		angle_B = E
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side A = B*sin(Angle B)', 'Side C = B*tan(Angle B)', 'angle_C = 90-Angle B')
+
 
 	elif E > 0 and C > 0: 
 		angle_C = (90-float(E))
@@ -81,6 +88,8 @@ def rat_calculate():
 		angle_B = E
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side A = C*cos(Angle B)', 'Side B = C*tan(Angle B)', 'angle_C = 90-Angle B')
+
 
 	elif F > 0 and A > 0:
 		angle_B = (90-float(F))
@@ -89,6 +98,8 @@ def rat_calculate():
 		angle_C = F
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side B = A*cos(Angle C)', 'Side C = A*sin(Angle C)', 'angle B = 90-Angle C')
+
 
 	elif F > 0 and B > 0:
 		angle_B = (90-float(F))
@@ -97,14 +108,18 @@ def rat_calculate():
 		angle_C = F
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side A = B*cos(Angle C)', 'Side C = B*tan(Angle C)', 'angle B = 90-Angle C')
+
 
 	elif F > 0 and C > 0:
 		angle_B = (90-float(F))
 		A = round(float(C)/math.sin(math.radians(float(F))),2)
-		B = round(fmdloat(C)/math.tan(math.radians(float(F))),2)
+		B = round(float(C)/math.tan(math.radians(float(F))),2)
 		angle_C = F
 		rat_set(A,B,C,D,angle_B,angle_C)
 		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
+		equation(True, 'Side A = C*sin(Angle C)', 'Side B = C*tan(Angle C)', 'angle B = 90-Angle C')
+
 	else:
 		messagebox.showinfo("Error", "Please enter two unknowns")
 
@@ -316,6 +331,7 @@ def draw(a,b,c,e,f):
 	rat_t.speed(0)
 	rat_t.up()
 	rat_t.goto(-200,-150)
+	# rat_t.write("Home = ", True, align="center", font=("Arial", 10, "normal"))
 	rat_t.penup()
 
 	if b > c:
@@ -338,6 +354,18 @@ def draw(a,b,c,e,f):
 
 def gtfo():
 	top.destroy()
+
+def equation(condition,x,y,z):
+	global equation_data
+	if condition:
+		equation_data = '''{0}
+						   {1}
+						   	{2}'''.format(x,y,z)
+
+def show_equations():
+	global equation_data
+	messagebox.showinfo("Equations", "{0}".format(equation_data))
+	equation_data = "Please enter data to the calculator"
 
 
 box0 = Frame(top)
@@ -385,8 +413,8 @@ cal_button = Button(box,text = "Calculate", command = lambda:rat_calculate())
 cal_button.grid(row = 5, column = 2)
 clear_botton = Button(box,text = "Clear", command = clear)
 clear_botton.grid(row = 6, column = 2)
-close_button = Button(box, text = "Close", command = gtfo)
-# close_button.grid(row = 7, column = 2)
+close_button = Button(box, text = "Equations", command = lambda:show_equations())
+close_button.grid(row = 7, column = 2)
 change_button = Button(box, text = "Cosine Triangle", command = goto_ct)
 # change_button.grid(row = 8, column = 2)
 home_button = Button(box, text = "Home", command = home)
