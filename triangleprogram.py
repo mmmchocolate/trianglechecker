@@ -33,95 +33,92 @@ def rat_calculate():
 		D = 90
 		E = float(B_Angle_in.get()) #angle_B
 		F = float(C_Angle_in.get())	#angle_C
-	except ValueError:
-		messagebox.showinfo("Error", "Please enter a interger")
-
-	if (A == 0 and B > 0 and C > 0):
-		A = round(math.sqrt((float(B)**2) + (float(C)**2)),2)
-		angle_B = round(math.degrees(math.atan(float(B)/float(C))),2)
-		angle_C = 90 - angle_B
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side A = sqrt(B**2 + C**2)', 'angle_B = atan(float(B)/float(C)', 'angle C = 90 - angle B')
-
-	elif B == 0 and A > 0 and C > 0:
-		B = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
-		angle_B = round(math.degrees(math.acos(float(C)/float(A))),2)
-		angle_C = 90 - angle_B
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side B = sqrt(A**2 - C**2)', 'angle_B = acos(float(C)/float(A)', 'angle C = 90 - angle B')
-
 		
-	elif C == 0 and A > 0 and B > 0:
-		C = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
-		angle_B = round(math.degrees(math.asin(float(B)/float(A))),2)
-		angle_C = 90 - angle_B
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side C = sqrt(A**2 - B**2)', 'angle_B = asin(float(B)/float(A)', 'angle C = 90 - angle B')
+		if (A == 0 and B > 0 and C > 0):
+			A = round(math.sqrt((float(B)**2) + (float(C)**2)),2)
+			angle_B = round(math.degrees(math.atan(float(B)/float(C))),2)
+			angle_C = 90 - angle_B
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side A = sqrt({0}**2 + {1}**2)'.format(B,C), 'angle_B = atan(float({0})/float({1})'.format(angle_B,angle_C), 'angle C = 90 - {0}'.format(angle_B))
 
-	elif E > 0 and A > 0: 
-		angle_C = (90-float(E))
-		B = round(float(A)*math.sin(math.radians(float(E))),2)
-		C = round(float(A)*math.cos(math.radians(float(E))),2)
-		angle_B = E
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side B = A*sin(Angle B)', 'Side C = A*cos(Angle B)', 'angle_C = 90-Angle B')
+		elif B == 0 and A > 0 and C > 0:
+			B = round(math.sqrt((float(A)**2) - (float(C)**2)),2)
+			angle_B = round(math.degrees(math.acos(float(C)/float(A))),2)
+			angle_C = 90 - angle_B
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side B = sqrt({0}**2 - {1}**2)'.format(A,B), 'angle_B = acos(float({0})/float({1})'.format(C,A), 'angle C = 90 - {0}'.format(angle_B))
+			
+		elif C == 0 and A > 0 and B > 0:
+			C = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
+			angle_B = round(math.degrees(math.asin(float(B)/float(A))),2)
+			angle_C = 90 - angle_B
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side C = sqrt({0}**2 - {1}**2)'.format(A,B), 'angle_B = asin(float({0})/float({1})'.format(B,A), 'angle C = 90 - {0}'.format(angle_B))
 
+		elif E > 0 and A > 0: 
+			angle_C = (90-float(E))
+			B = round(float(A)*math.sin(math.radians(float(E))),2)
+			C = round(float(A)*math.cos(math.radians(float(E))),2)
+			angle_B = E
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side B = {0}*sin({1})'.format(A,E), 'Side C = {0}*cos({1})'.format(A,E), 'angle_C = 90-{0}'.format(E))
 
-	elif E > 0 and B > 0:
-		angle_C = (90-float(E))
-		A = round(float(B)/math.sin(math.radians(float(E))),2)
-		C = round(float(B)/math.tan(math.radians(float(E))),2)
-		angle_B = E
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side A = B*sin(Angle B)', 'Side C = B*tan(Angle B)', 'angle_C = 90-Angle B')
+		elif E > 0 and B > 0:
+			angle_C = (90-float(E))
+			A = round(float(B)/math.sin(math.radians(float(E))),2)
+			C = round(float(B)/math.tan(math.radians(float(E))),2)
+			angle_B = E
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side A = {0}*sin({1})'.format(B,E), 'Side C = {0}*tan({1})'.format(B,E), 'angle_C = 90-{0}'.format(E))
 
+		elif E > 0 and C > 0: 
+			angle_C = (90-float(E))
+			A = round(float(C)/math.cos(math.radians(float(E))),2)
+			B = round(float(C)*math.tan(math.radians(float(E))),2)
+			angle_B = E
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side A = {0}*cos({1})'.format(C,E), 'Side B = {0}*tan({1})'.format(C,E), 'angle_C = 90-{0}'.format(E))
 
-	elif E > 0 and C > 0: 
-		angle_C = (90-float(E))
-		A = round(float(C)/math.cos(math.radians(float(E))),2)
-		B = round(float(C)*math.tan(math.radians(float(E))),2)
-		angle_B = E
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side A = C*cos(Angle B)', 'Side B = C*tan(Angle B)', 'angle_C = 90-Angle B')
+		elif F > 0 and A > 0:
+			angle_B = (90-float(F))
+			B = round(float(A)*math.cos(math.radians(float(F))),2)
+			C = round(float(A)*math.sin(math.radians(float(F))),2)
+			angle_C = F
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side B = {0}*cos({1})'.format(A,F), 'Side C = {0}*sin({1})'.format(A,F), 'angle B = 90-{0}'.format(F))
 
+		elif F > 0 and B > 0:
+			angle_B = (90-float(F))
+			A = round(float(B)/math.cos(math.radians(float(F))),2)
+			C = round(float(B)*math.tan(math.radians(float(F))),2)
+			angle_C = F
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side A = {0}*cos({1})'.format(B,F), 'Side C = {0}*tan({1})'.format(B,F), 'angle B = 90-{0}'.format(F))
 
-	elif F > 0 and A > 0:
-		angle_B = (90-float(F))
-		B = round(float(A)*math.cos(math.radians(float(F))),2)
-		C = round(float(A)*math.sin(math.radians(float(F))),2)
-		angle_C = F
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side B = A*cos(Angle C)', 'Side C = A*sin(Angle C)', 'angle B = 90-Angle C')
+		elif F > 0 and C > 0:
+			angle_B = (90-float(F))
+			A = round(float(C)/math.sin(math.radians(float(F))),2)
+			B = round(float(C)/math.tan(math.radians(float(F))),2)
+			angle_C = F
+			rat_set(A,B,C,D,angle_B,angle_C)
+			draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
+			equation(True, 'Side A = {0}*sin({1})'.format(C,F), 'Side B = {0}*tan({1})'.format(C,F), 'angle B = 90-{0}'.format(F))
+		else:
+			messagebox.showinfo("Error", "Please enter two unknowns")
 
+	except ValueError:
+		messagebox.showinfo("Error", "The specified values do not match a valid triangle.")
+		messagebox.showinfo("Error", "Please input intergers not strings")
 
-	elif F > 0 and B > 0:
-		angle_B = (90-float(F))
-		A = round(float(B)/math.cos(math.radians(float(F))),2)
-		C = round(float(B)*math.tan(math.radians(float(F))),2)
-		angle_C = F
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side A = B*cos(Angle C)', 'Side C = B*tan(Angle C)', 'angle B = 90-Angle C')
-
-
-	elif F > 0 and C > 0:
-		angle_B = (90-float(F))
-		A = round(float(C)/math.sin(math.radians(float(F))),2)
-		B = round(float(C)/math.tan(math.radians(float(F))),2)
-		angle_C = F
-		rat_set(A,B,C,D,angle_B,angle_C)
-		draw(float(A),float(B),float(C),float(angle_B),float(angle_C))
-		equation(True, 'Side A = C*sin(Angle C)', 'Side B = C*tan(Angle C)', 'angle B = 90-Angle C')
-
-	else:
-		messagebox.showinfo("Error", "Please enter two unknowns")
+	
 
 def ct_calculate():
 	try:
@@ -140,6 +137,7 @@ def ct_calculate():
 			angle_B = round(math.degrees(math.acos((C**2 + A**2 - B**2)/(2.0 * C * A))),2)
 			angle_C = round(math.degrees(math.acos((B**2 + A**2 - C**2)/(2.0 * B * A))),2)
 			ct_set(str(A),str(B),str(C),str(angle_A),str(angle_B),str(angle_C))
+			draw(A,B,C,angle_A,angle_B,angle_C)
 
 		elif (A) >0 and (B) > 0 and (D) > 0:
 			angle_B = round(math.degrees(math.asin((B*math.sin(math.radians(D)))/A)),2)
@@ -326,31 +324,77 @@ def goto_rat():
 	ct.withdraw()
 	rat.deiconify()
 
-def draw(a,b,c,e,f):
+def draw(a,b,c,d,e,f):
 	rat_t.clear()
 	rat_t.speed(0)
 	rat_t.up()
-	rat_t.goto(-200,-150)
+	rat_t.goto(0,-150)
 	# rat_t.write("Home = ", True, align="center", font=("Arial", 10, "normal"))
 	rat_t.penup()
 
-	if b > c:
-		hyp = (400/b) * a
-		base = (400/b) *b
-		opp = (400/b) * c
-	elif c > b:
+	if b > c :
+		hyp = (350/b) * a
+		base = (350/b) *b
+		opp = (350/b) * c
+	elif c > b or b == c:
 		hyp = (300/c) * a
 		base = (300/c) *b
 		opp = (300/c) * c
-			
+	
+	x = base/2
 	rat_t.pendown()
-	rat_t.forward(base) 
-	rat_t.left(90)
+	rat_t.forward(x) 
+	rat_t.left(d)
 	rat_t.forward(opp)
 	rat_t.left(90+f)
 	rat_t.forward(hyp)
 	rat_t.left(90+e)
+	rat_t.forward(x)
 	rat_t.penup()
+	triangle_label(hyp,base,opp,d,e,f)
+
+def triangle_label(a,b,c,d,e,f):
+	t = '''
+	Hypotenuse
+	  Side A
+	'''
+	t2 = '''
+	Opposite
+	  Side C
+	'''
+	t3 = '''
+	Adjacent
+	  Side B
+	'''
+	t4 = 'hello'
+	x = a/2
+	y = b/2
+	q = b/4
+	z = c/2
+	rat_t.goto(0,-170)
+	rat_t.penup()
+	rat_t.right(90)
+	rat_t.forward(30)
+	rat_t.write(t3 ,False, align="center", font=("Arial", 10, "normal"))
+	rat_t.backward(30)
+	rat_t.left(90)
+	
+	rat_t.forward(y)
+	rat_t.write("Angle A", False, align="center", font=("Arial", 10, "normal"))
+	rat_t.left(d)
+	rat_t.forward(z)
+	rat_t.write(t2, False, align="center", font=("Arial", 10, "normal"))
+	rat_t.forward(z+30)
+	# rat_t.forward(z+30)
+	rat_t.write("Angle B", False, align="center", font=("Arial", 10, "normal"))
+	rat_t.left(90+f)
+	rat_t.forward(x)
+	rat_t.write(t, False, align="center", font=("Arial", 10, "normal"))
+	rat_t.forward(x+30)
+	rat_t.write("Angle C", False, align="center", font=("Arial", 10, "normal"))
+	rat_t.left(90+e)
+	
+	rat_t.forward(y)
 
 def gtfo():
 	top.destroy()
@@ -359,7 +403,7 @@ def equation(condition,x,y,z):
 	global equation_data
 	if condition:
 		equation_data = '''{0}
-						   {1}
+						       {1}
 						   	{2}'''.format(x,y,z)
 
 def show_equations():
@@ -460,7 +504,6 @@ change_button = Button(box1, text = "Right angle triange", command = goto_rat)
 # change_button.grid(row = 8, column = 2)
 home_button = Button(box1, text = "Home", command = home)
 home_button.grid(row = 9, column = 2)
-
 
 def main():
 	clear()
