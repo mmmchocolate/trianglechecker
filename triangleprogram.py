@@ -499,16 +499,16 @@ def ct_triangle_label(a,b,c,d,e,f):
 		'''
 	else:
 		t = '''
-		Opposite
-		  Side A
+      Opposite
+      Side A
 		'''
 		t2 = '''
 		Hypotenuse
-		  Side C
+		Side C
 		'''
 		t3 = '''
-		Adjacent
-		  Side B
+	Adjacent
+	Side B
 		'''
 	t4 = 'hello'
 	x = a/2
@@ -531,9 +531,9 @@ def ct_triangle_label(a,b,c,d,e,f):
 	# ct_t.forward(z+30)
 	ct_t.write("Angle B", False, align="center", font=("Arial", 10, "normal"))
 	ct_t.left(180-e)
-	ct_t.forward(x)
-	ct_t.write(t, False, align="center", font=("Arial", 10, "normal"))
 	ct_t.forward(x+30)
+	ct_t.write(t, False, align="center", font=("Arial", 10, "normal"))
+	ct_t.forward(x)
 	ct_t.write("Angle C", False, align="center", font=("Arial", 10, "normal"))
 	ct_t.left(180-f)
 	ct_t.forward(y)
