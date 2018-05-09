@@ -37,7 +37,7 @@ def rat_calculate():
 		if (A == 0 and B > 0 and C > 0):
 			A = round(math.sqrt((float(B)**2) + (float(C)**2)),2)
 			angle_B = round(math.degrees(math.atan(float(B)/float(C))),2)
-			angle_C = 90 - angle_B
+			angle_C = round(90 - angle_B,2)
 			rat_set(A,B,C,D,angle_B,angle_C)
 			rat_draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
 			equation(True, 'Side A = sqrt({0}**2 + {1}**2)'.format(B,C), 'angle_B = atan(float({0})/float({1})'.format(angle_B,angle_C), 'angle C = 90 - {0}'.format(angle_B))
@@ -53,7 +53,7 @@ def rat_calculate():
 		elif C == 0 and A > 0 and B > 0:
 			C = round(math.sqrt((float(A)**2) - (float(B)**2)),2)
 			angle_B = round(math.degrees(math.asin(float(B)/float(A))),2)
-			angle_C = 90 - angle_B
+			angle_C = round(90 - angle_B,2)
 			rat_set(A,B,C,D,angle_B,angle_C)
 			rat_draw(float(A),float(B),float(C),90,float(angle_B),float(angle_C))
 			equation(True, 'Side C = sqrt({0}**2 - {1}**2)'.format(A,B), 'angle_B = asin(float({0})/float({1})'.format(B,A), 'angle C = 90 - {0}'.format(angle_B))
@@ -382,6 +382,9 @@ def goto_rat():
 	ct.withdraw()
 	rat.deiconify()
 
+def gtfo():
+	top.destroy()
+
 def rat_draw(a,b,c,d,e,f):
 	rat_t.clear()
 	rat_t.speed(0)
@@ -413,15 +416,12 @@ def rat_draw(a,b,c,d,e,f):
 
 def triangle_label(a,b,c,d,e,f):
 	t = '''
-	Hypotenuse
 	  Side A
 	'''
 	t2 = '''
-	Opposite
 	  Side C
 	'''
 	t3 = '''
-	Adjacent
 	  Side B
 	'''
 	t4 = 'hello'
@@ -461,8 +461,11 @@ def ct_draw(a,b,c,d,e,f):
 	ct_t.goto(0,-150)
 	# rat_t.write("Home = ", True, align="center", font=("Arial", 10, "normal"))
 	ct_t.penup()
-
-	if b > c :
+	if a > b and a > c:
+		hyp = (300/a) * a
+		base = (300/a) *b
+		opp = (300/a) * c
+	elif b > c :
 		hyp = (300/b) * a
 		base = (300/b) *b
 		opp = (300/b) * c
@@ -470,6 +473,7 @@ def ct_draw(a,b,c,d,e,f):
 		hyp = (300/c) * a
 		base = (300/c) *b
 		opp = (300/c) * c
+	
 	
 	x = base/2
 	ct_t.pendown()
@@ -486,28 +490,22 @@ def ct_draw(a,b,c,d,e,f):
 def ct_triangle_label(a,b,c,d,e,f):
 	if a > b and a > c:
 		t = '''
-		Hypotenuse
 		  Side A
 		'''
 		t2 = '''
-		Opposite
 		  Side C
 		'''
 		t3 = '''
-		Adjacent
 		  Side B
 		'''
 	else:
 		t = '''
-      Opposite
       Side A
 		'''
 		t2 = '''
-		Hypotenuse
 		Side C
 		'''
 		t3 = '''
-	Adjacent
 	Side B
 		'''
 	t4 = 'hello'
@@ -538,9 +536,6 @@ def ct_triangle_label(a,b,c,d,e,f):
 	ct_t.left(180-f)
 	ct_t.forward(y)
 
-def gtfo():
-	top.destroy()
-
 def equation(condition,x,y,z):
 	global rat_equation_data,ct_equation_data
 	if condition == True:
@@ -562,13 +557,31 @@ def ct_show_equations():
 	messagebox.showinfo("Equations", "{0}".format(ct_equation_data))
 	ct_equation_data = "Please enter data to the calculator"
 
+def help():
+	message = '''Enter three unknowns into the triangle calculator to work out the other sides and angles
+
+Press either the 'Right Angle Triangle button or 'Cosine triangle' button to get started
+
+After entering three unknows, press the calculate button to visualise the triangle and get the other unknowns
+
+The 'Equations' button will show you the equations that were used to calculate the unknowns
+
+If you want to start again you can click the 'clear' button
+
+The 'home' button will take to back to the main menu
+	'''
+	messagebox.showinfo("Help", "{0}".format(message))
+
 box0 = Frame(top)
 box0.pack()
+photo = PhotoImage(file = "triangle.png")
+trianglepicture = Label(box0, image=photo)
+trianglepicture.pack()
 b_1 = Button(box0, text = "Right Angle Triangle", command = goto_rat)
 b_1.pack()
 b_2 = Button(box0, text = "Cosine Triangle", command = goto_ct)
 b_2.pack()
-b_3 = Button(box0, text = "Help", command = quit)
+b_3 = Button(box0, text = "Help", command = help)
 b_3.pack()
 b_4 = Button(box0, text = "Close", command = quit)
 b_4.pack()
